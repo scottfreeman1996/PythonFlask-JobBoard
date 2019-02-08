@@ -46,10 +46,10 @@ def job(job_id):
 def employer(employer_id):
     employer = execute_sql('SELECT * FROM employer WHERE id=?',
     [emploer_id], single = True)
-    jobs = execute_sql('SELECT job.id, job.title, job.description, job.salary, employer.id as employer_id, employer.name as employer_name FROM job JOIN employer ON employer.id = job.employer_id WHERE job.id = ?'
+    jobs = execute_sql('SELECT job.id, job.title, job.description, job.salary FROM job JOIN employer ON employer.id = job.employer_id WHERE employer.id = ?'
     , [employer_id])
-    reviews = execute_sql('SELECT job.id, job.title, job.description, job.salary, employer.id as employer_id, employer.name as employer_name FROM job JOIN employer ON employer.id = job.employer_id WHERE job.id = ?'
-    , [emploer_id])
+    reviews = execute_sql('SELECT review, rating, title, date, status FROM review JOIN employer ON employer.id = review.employer_id WHERE employer.id = ?'
+    , [employer_id])
     return render_template('employer.html', employer = employer, jobs=jobs, reviews = reviews)
 
 
