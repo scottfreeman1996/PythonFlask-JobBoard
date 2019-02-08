@@ -6,7 +6,7 @@ PATH = 'db/jobs.sqlite'
 
 app = Flask(__name__)
 
-def open_connect():
+def open_connection():
     connection = getattr(g, '_connection', None)
     if connection == None:
         connection = g._connection = sqlite3.connect(PATH)
@@ -34,3 +34,6 @@ def close_connection(exception):
 @app.route("/jobs")
 def jobs():
     return render_template("index.html")
+
+
+
